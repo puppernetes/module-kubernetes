@@ -88,7 +88,7 @@ class kubernetes::kubelet(
     require => File[$kubelet_dir],
   }
 
-  $availability_zone = $facts.dig('ec2_metadata','placement','availability-zone')
+  $availability_zone = $facts.dig(['ec2_metadata', 'placement','availability-zone'])
   if $::kubernetes::cloud_provider == 'aws' and $availability_zone != undef {
     file{"${kubelet_dir}/plugins/kubernetes.io":
       ensure  => 'directory',
